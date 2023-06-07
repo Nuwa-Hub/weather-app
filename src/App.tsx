@@ -4,7 +4,7 @@ import { ThemeProvider } from "styled-components";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import { GlobalStyles } from "./app.styled";
-import Home from "./pages/Home";
+
 import { AppStore } from "./store/store";
 import { darkTheme, lightTheme } from "./theme";
 import { routes } from "./routes";
@@ -12,6 +12,7 @@ import ProtectedRoute from "./common/ProtectedRoute";
 import Auth from "./common/Auth";
 import PermissionDenied from "./components/ui/PermissionDenied";
 import Login from "./components/Login/Login";
+import Home from "./pages/Home";
 
 const App: React.FC = () => {
   const darkMode = useSelector((state: AppStore) => state.app.darkMode);

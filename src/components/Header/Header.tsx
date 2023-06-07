@@ -12,7 +12,7 @@ const Header: React.FC = () => {
 
   return (
     <HeaderContainer>
-      <Title>React Weather</Title>
+      <Title>Weather App</Title>
       <HeaderIconsContainer>
         <DarkModeToggle
           checked={isDarkMode}

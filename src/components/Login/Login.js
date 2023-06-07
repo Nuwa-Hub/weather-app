@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Formik, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import axios from "../../utils/axios";
+import { useNavigate } from "react-router-dom";
 
 import {
   PageWrapper,
@@ -21,20 +23,24 @@ const validationSchema = Yup.object().shape({
 
 function Login() {
   const [formValues, setFormValues] = useState();
+  const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log(formValues);
+  const handleSubmit = async (values) => {
+    const { data } = await axios.post("/admin/login", {
+      email: values.email,
+      password: values.password,
+    });
 
-    // const { data } = await axios.post("/admin/login", {
-    //   email: e.email,
-    //   password: e.password,
-    // });
+    console.log(data);
+    sessionStorage.setItem("accessToken", data.signature);
+
+    if (data?.signature) {
+      navigate("/home");
+    }
   };
 
   return (
     <PageWrapper>
-      <hr />
       <Formik
         initialValues={{
           password: "",
@@ -44,26 +50,13 @@ function Login() {
         onSubmit={(values, actions) => {
           console.log(values);
           setFormValues(values);
-
-          const timeOut = setTimeout(() => {
-            actions.setSubmitting(false);
-
-            clearTimeout(timeOut);
-          }, 1000);
+          handleSubmit(values);
         }}
       >
-        {({
-          values,
-          errors,
-          touched,
-          handleSubmit,
-          isSubmitting,
-          isValidating,
-          isValid,
-        }) => {
+        {({ values, errors, touched, isSubmitting, isValidating, isValid }) => {
           return (
             <>
-              <Form name="contact" method="post" onSubmit={handleSubmit}>
+              <Form name="contact" method="post">
                 <Label htmlFor="email">
                   Email
                   <Input
