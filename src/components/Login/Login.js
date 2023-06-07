@@ -22,6 +22,16 @@ const validationSchema = Yup.object().shape({
 function Login() {
   const [formValues, setFormValues] = useState();
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(formValues);
+
+    const { data } = await axios.post("/admin/login", {
+      email: e.email,
+      password: e.password,
+    });
+  };
+
   return (
     <PageWrapper>
       <hr />
