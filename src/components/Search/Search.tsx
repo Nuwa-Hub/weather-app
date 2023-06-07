@@ -19,19 +19,8 @@ const Search: React.FC = () => {
   const suggestionRef = useRef(null);
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
   const [lat, setLat] = useState("");
   const [lng, setLng] = useState("");
-
-  useEffect(() => {
-    if (!searchTerm) {
-      return;
-    }
-    setShowSuggestions(true);
-    fetchCities(searchTerm).then((res) => {
-      setSuggestions(res);
-    });
-  }, [searchTerm]);
 
   useEffect(() => {
     const position = {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Formik, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "../../utils/axios";
@@ -22,7 +22,6 @@ const validationSchema = Yup.object().shape({
 });
 
 function Login() {
-  const [formValues, setFormValues] = useState();
   const navigate = useNavigate();
 
   const handleSubmit = async (values) => {
@@ -48,8 +47,6 @@ function Login() {
         }}
         validationSchema={validationSchema}
         onSubmit={(values, actions) => {
-          console.log(values);
-          setFormValues(values);
           handleSubmit(values);
         }}
       >
